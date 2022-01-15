@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Optinux/website2#readme",
   "dependencies": {
+    "terminal.css": "^0.7.2",
     "three": "^0.136.0",
     "vue": "^2.6.14"
   }
