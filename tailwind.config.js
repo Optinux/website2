@@ -9,6 +9,9 @@ module.exports = {
         "dark-night": "#1a1b26",
         "background-dark": "#16161E",
         "background-med-dark": "#070a1b",
+        "dark-sidebar": "#1f1445",
+        "darker-sidebar": "#181037",
+        "pink-accent": "#7C3AED",
       },
       fontFamily: {
         inconsolata: ["Inconsolata", "monospace"],
@@ -34,5 +37,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@themesberg/flowbite/plugin")],
 };
