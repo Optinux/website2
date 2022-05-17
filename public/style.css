@@ -578,7 +578,7 @@ video {
   border-color: rgba(229, 231, 235, var(--tw-border-opacity));
 }
 
-[type='time'],textarea,select {
+[type='password'],[type='time'],textarea,select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -595,7 +595,7 @@ video {
   --tw-shadow: 0 0 #0000;
 }
 
- [type='time']:focus, textarea:focus, select:focus {
+ [type='password']:focus, [type='time']:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
