@@ -17,34 +17,92 @@
       sizes="160x160"
     />
     <title>Voting Masterfrage</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
   </head>
 
-  <body style="background-color: #1e1c6b;">
-    
-    <nav class="sticky top-0 z-10 backdrop-filter backdrop-blur-lg border-gray-200 bg-opacity-30 border-b">
-        <div class="mx-3 flex items-center justify-center h-12 text-white font-inconsolata text-5xl">
-            <div>
-                <a class="hover:text-purple-600">Masterfrage</a>
-            </div>
+  <body style="background-color: #1e1c6b">
+    <nav
+      class="sticky top-0 z-10 backdrop-filter backdrop-blur-lg border-gray-200 bg-opacity-30 border-b"
+    >
+      <div
+        class="mx-3 flex items-center justify-center h-12 text-white font-inconsolata text-5xl"
+      >
+        <div>
+          <a class="hover:text-purple-600">Masterfrage</a>
         </div>
+      </div>
     </nav>
 
     <div class="flex items-top justify-between h-screen">
-      <div class="font-inconsolata text-8xl text-white float-left ml-10">
-        <div>TEAM 1
-            <div class="font-inconsolata text-4xl text-white text-center mt-10">
-                <div contenteditable="true">0$</div>
+      <div class="font-inconsolata text-8xl text-white float-left ml-20">
+        <div>
+          TEAM 1
+          <div class="font-inconsolata text-4xl text-white text-center mt-10">
+            <button id="showdiv1" onclick="toggleEditableDiv()">
+              [Zeige Eingabefeld]
+            </button>
+            <script>
+
+                $(document).ready(function() {
+                    $("editable-div1").load("values.txt");
+                });
+                
+                    </script>
+            <div
+              id="editable-div1"
+              class="editable-div"
+              contenteditable="true"
+              style="display: none"
+            >
+              0$
             </div>
+          </div>
+
+          <script>
+            function toggleEditableDiv() {
+              var editableDiv = document.getElementById("editable-div1");
+              if (editableDiv.style.display === "none") {
+                editableDiv.style.display = "block";
+              } else {
+                editableDiv.style.display = "none";
+              }
+            }
+          </script>
         </div>
       </div>
-      <div class="font-inconsolata text-8xl text-white float-right mr-10">
-        TEAM 2
-        <div class="font-inconsolata text-4xl text-white text-center mt-10">
-            <div contenteditable="true">0$</div>
+
+      <div class="font-inconsolata text-8xl text-white float-left mr-20">
+        <div>
+          TEAM 2
+          <div class="font-inconsolata text-4xl text-white text-center mt-10">
+            <button onclick="toggleEditableDiv2()">[Zeige Eingabefeld]</button>
+            <div
+              id="editable-div2"
+              class="editable-div"
+              contenteditable="true"
+              style="display: none"
+              oninput="saveContent()"
+            >
+              0$
+            </div>
+          </div>
+          <script>
+            function toggleEditableDiv2() {
+              var editableDiv = document.getElementById("editable-div2");
+              if (editableDiv.style.display === "none") {
+                editableDiv.style.display = "block";
+              } else {
+                editableDiv.style.display = "none";
+              }
+            }
+          </script>
         </div>
       </div>
- 
     </div>
-    
   </body>
 </html>

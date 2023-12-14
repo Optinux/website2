@@ -846,6 +846,18 @@ input[type=file]::file-selector-button:hover {
   margin-top: 2.5rem;
 }
 
+.mr-20 {
+  margin-right: 5rem;
+}
+
+.ml-20 {
+  margin-left: 5rem;
+}
+
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -1060,4 +1072,12 @@ input[type=file]::file-selector-button:hover {
   .lg\:block {
     display: block;
   }
+}
+
+.bg-background-med-dark-anim {
+  --tw-bg-opacity: 1;
+  background-size: 300% 300%;
+  background-image: linear-gradient(90deg, rgba(31,13,43,1) 0%, rgba(9,10,59,1) 78%, rgba(20,35,56,1) 100%);
+  -webkit-animation: AnimateBG 20s ease infinite;
+          animation: AnimateBG 20s ease infinite;
 }
