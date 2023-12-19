@@ -1,0 +1,63 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style_overrides.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    href="images/favicon_all.png"
+    sizes="160x160"
+  />
+  <title>redirecting...</title>
+  <meta http-equiv="refresh" content="5;url=example.org" />
+
+  <script>
+    var timer = setInterval(function () {
+      var elem = document.getElementById("countdown");
+      var val = parseInt(elem.innerHTML);
+
+      if (val === 0) {
+        clearInterval(timer);
+        return;
+      }
+
+      val--;
+
+      elem.innerHTML = val;
+    }, 1000);
+
+
+    
+  </script>
+</head>
+<nav
+  class="sticky top-0 z-10 backdrop-filter backdrop-blur-lg border-gray-200 bg-opacity-30 border-b"
+>
+  <div
+    class="mx-3 flex items-center justify-center h-12 text-white font-inconsolata text-5xl"
+  >
+    <div>
+      <a class="hover:text-purple-600"
+        >Weiterleitung erfolgt in <span id="countdown">5</span>s...
+      </a>
+    </div>
+  </div>
+</nav>
+<body class="bg-background-med-dark-anim">
+  <div class="flex items-center justify-center h-screen">
+    >
+
+    <img
+      class="rounded-lg grayscale"
+      src="images/max.png"
+      style="animation: colorize 5s linear 0s 1 normal"
+    />
+  </div>
+</body>
