@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style_overrides.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicon_all.png"
+      sizes="160x160"
+    />
+    <title>Hosting your own web entry</title>
+  </head>
+
+  <body class="bg-background-med-dark-anim">
+    <nav
+      class="sticky top-0 z-10 backdrop-filter backdrop-blur-lg border-gray-200 bg-opacity-30 border-b"
+    >
+      <div class="mx-3">
+        <div
+          class="flex items-center justify-between h-12 text-white font-inconsolata text-5xl"
+        >
+          <span class="text-2xl text-gray-900 font-semibold"
+            ><a href="https://optinux.me/"
+              ><img
+                class="hidden lg:block h-8 w-auto"
+                src="images/emoji_straight.png"
+            /></a>
+          </span>
+          <div>
+            <a class="hover:text-purple-600" href="https://blog.optinux.me">
+              Return
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="h-screen font-inconsolata">
+        <h1 class="font-semibold text-5xl" id="uhm-uhh">Hosting your own web entry</h1>
+       
+          <div>
+            <h2 id="features" class="text-2xl">Features</h2>
+            <ul>
+            <li>- nginx reverse proxy, no need to open more than two ports</li>
+            <li>- secure TLS/HTTPS encrpyted connection from client to our backend</li>
+            <li>- cloudflare as a proxied DNS provider</li>
+            <li>- dynamic DNS updating</li>
+            </ul>
+            <h2 id="overview-and-topology-map" class="text-2xl">overview and topology map</h2>
+            <p><img src="images/topology.png" alt="alt text"></p>
+            <h2 id="nginx-reverse-proxy" class="text-2xl">nginx reverse proxy</h2>
+            <p>To server our website, clients somehow need to connect to our server. Usually this can be done by opening a port on our router/firewall. This works fine if you only want to host a single website and/or service, but if you want to expose more than one, you normally have to serve it from a different IP. We can circumvent this by using a reverse proxy. It works by bundling all traffic and sending it trough only one exposed tunnel. This is illustrated below. Furthermore, nginx as built-in functionality for serving .html based sites on the web. We use both features in this case.
+            <img src="images/nginx.png" alt="alt text"></p>
+            <ul>
+            <li>- Install <code>nginx</code></li>
+            <li>- cd into <code>/etc/nginx/conf.d</code></li>
+            <li>- create a new .conf file and name it how you like, I recommend [yourdomain].conf</li>
+            <li>- copy the following into your file and change to your liking</li>
+            </ul>
+            <pre><code>server {
+            listen 80;
+            server_name domain.com;
+            root path/to/the/folder/containing/your/index/file;
+            }
+            </code></pre>
+            <ul>
+            <li>- cd into specified root path and create an <code>index.html</code> file and write <code>Hello World</code> into it</li>
+            <li>- run <code>nginx -t</code> to check if everything is working</li>
+            </ul>
+            <h2 id="cloudflare-as-our-dns-provider" class="text-2xl">Cloudflare as our DNS provider</h2>
+            <ul>
+            <li>- First of, go and create cloudlfare account</li>
+            <li>- Now head over to your domain registrar and change the dns servers to the ones specified on cloudflares site</li>
+            <li>- Then over at cloudflare, go to DNS settings</li>
+            <li>- Create a new <code>A</code> record with your full domain name pointing at your IP. You can get your IP on <a href="https://ipleak.net">ipleak.net</a></li>
+            </ul>
+            <h3 id="dynamic-ip" class="text-1xl">Dynamic IP?</h3>
+            <p>Our dns records now point to our current IP. Now, for a lot of people ISPs dont give them a static IP address. As such, the IP we assigned will change and wont be valid withing a few hours or days. We can fix this by dynamically updating our DNS records to cloudflare.
+            Personally, ive been using qdm12&#39;s <a href="https://github.com/qdm12/ddns-updater">ddns-updater</a> docker container for this. In my case, im using the specified <code>docker-compose.yml</code>.
+            To get it up and running, download the <code>docker-compose.yml</code> and change the parameteres to your need. This likely boils down to changing your port and specifiying a config.</p>
+            <h2 id="getting-our-connection-encrpyted" class="text-2xl">Getting our connection encrpyted</h2>
+            <p>As of now all our traffic passes from client &lt;-&gt; server without being encrpyted. This essentially allows anyone to read and potentially intercept our traffic with out our knowledge. To change this, we can use <code>certbot</code>. It should be preinstalled on most common distros.
+            <code>certbot</code> gives out free TLS/HTTPS certificates authorized by the <a href="https://eff.org">EFF</a>.
+            Usage goes as follows:</p>
+            <ul>
+            <li>- run <code>cerbot --nginx</code> and enter the number corresponding to your domain</li>
+            <li>- let it finish and afterwards wait a minute for everything to update</li>
+            <li>- navigate to your website and you should see automatically turn into a https site</li>
+            </ul>
+            <h2 id="subdomain-and-different-services" class="text-2xl">Subdomain and different services</h2>
+            <ul>
+            <li>- nginx config for a subdomain</li>
+            </ul>
+            <pre><code>server {
+            listen 80;
+            server_name one.domain.com;
+                location / {
+                    proxy_pass http://ip:port;
+                }}
+            </code></pre>
+            <ul>
+            <li>- <code>nginx -t</code></li>
+            <li>- create a clouflare <code>A</code> record with your subdomain.domain.com pointing to your address</li>
+            <li>- if needed, update your ddns-update to include the subdomain</li>
+            <li>- <code>certbot --nginx</code></li>
+            </ul>
+            
+
+        </div>
+        </p>
+
+        <hr>
+        <h6 class="text-gray-900">Hosting your own web entry , 09.09.2024</h6>
+        
+    </div>
+
+  </body>
+  
+</html>
